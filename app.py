@@ -77,20 +77,17 @@ def new_item():
         skills = request.form.getlist('skill[]')
         res = ""
         title = ""
-        if skills[0] == "": #Проверка названия на пустоту
-            error = 'Задайте название'
-        else:
-            i = 0
-            for value in skills:
-                if i == 0:
-                    title = value
-                else:
-                    res += value + ","
-                i += 1
-            res = res[:-1]
-            number = get_number(con) + 1
-            insert_to_db(con, (number, title, res))
-            return redirect(url_for('index'))
+        i = 0
+        for value in skills:
+            if i == 0:
+                title = value
+            else:
+                res += value + ","
+            i += 1
+        res = res[:-1]
+        number = get_number(con) + 1
+        insert_to_db(con, (number, title, res))
+        return redirect(url_for('index'))
     return render_template('new_item.html', error=error)
 
 
